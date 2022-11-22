@@ -1,9 +1,9 @@
 import React from "react";
-import TodoForm from "../src/views/Todo-Components/TodoForm";
+import Todos from "../src/views/Todo-Components/Todos";
 const App = () => {
   return (
     <div>
-      <TodoForm />
+      <Todos />
     </div>
   );
 };
