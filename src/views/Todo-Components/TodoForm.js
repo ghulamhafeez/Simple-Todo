@@ -13,7 +13,7 @@ const TodoForm = ({ onUpdate, setTodo, onAdd, isEditMode, todo }) => {
       {isEditMode ? (
         <button onClick={() => onUpdate()}>UpDate</button>
       ) : (
-        <button onClick={(e) => onAdd(e)}>Add</button>
+        <button onClick={() => onAdd()}>Add</button>
       )}
     </div>
   );

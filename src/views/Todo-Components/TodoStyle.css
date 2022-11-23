@@ -20,6 +20,12 @@
     border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
-    
+    display: flex;
+    justify-content: space-between;
   }
+.tr {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #dddddd;
+}
     

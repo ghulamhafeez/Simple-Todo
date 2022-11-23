@@ -2,51 +2,50 @@ import React, { useState } from "react";
 import TodoList from "./TodoList";
 import TodoForm from "./TodoForm";
 const Todos = () => {
-  const [todoList, setTodoList] = useState([]);
-  const [todo, setTodo] = useState();
+  const [todos, setTodos] = useState([]);
+  const [todo, setTodo] = useState("");
   const [isEditMode, setIsEditMode] = useState(false);
-  const [index, setIndex] = useState(0);
+  const [id, setId] = useState(0);
 
   const onAdd = () => {
     let myData = {
       name: todo,
       id: Date.now(),
     };
+    const newTodo = [...todos, myData];
 
-    const newTodo = todoList.slice();
-    newTodo.push(myData);
-    setTodoList(newTodo);
-    valueNull();
+    setTodos(newTodo);
+    setTodo("");
   };
 
   const onDelete = (id) => {
-    const newTodoList = todoList.filter((todo) => id !== todo.id);
+    const newTodoList = todos.filter((todo) => id !== todo.id);
 
-    setTodoList(newTodoList);
+    setTodos(newTodoList);
   };
 
-  const onEdit = (data, i) => {
+  const onEdit = (data) => {
     setTodo(data.name);
-    setIndex(i);
+    setId(data.id);
     setIsEditMode(true);
   };
 
   const onUpdate = () => {
-    const newTodo = todoList.slice();
-    let data = {
-      name: todo,
-      id: Date.now(),
-    };
 
-    newTodo.splice(index, 1, data);
+    //findindex method//
 
-    setTodoList(newTodo);
+    // const newTodo = todos.slice();
+    // let index = todos.findIndex((i) => i.id == id);
+    // newTodo.splice(index, 1, myData);
+
+    const updatedTodos = todos.map((x) =>
+      x.id == id ? { ...x, name: todo } : x
+    );
+    setTodos(updatedTodos);
     setIsEditMode(false);
-    valueNull();
-  };
-  const valueNull = () => {
     setTodo("");
   };
+
   return (
     <div>
       <TodoForm
@@ -54,12 +53,12 @@ const Todos = () => {
         setTodo={setTodo}
         isEditMode={isEditMode}
         onUpdate={() => onUpdate()}
-        onAdd={(data) => onAdd(data)}
+        onAdd={() => onAdd()}
       />
       <TodoList
-        todo={todoList}
+        todo={todos}
         onDelete={(id) => onDelete(id)}
-        onEdit={(data, i) => onEdit(data, i)}
+        onEdit={(data) => onEdit(data)}
       />
     </div>
   );
