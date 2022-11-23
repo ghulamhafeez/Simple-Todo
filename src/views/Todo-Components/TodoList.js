@@ -1,36 +1,30 @@
 import React from "react";
-import './TodoStyle.css';
-const TodoList = (props) => {
-  console.log("props", props);
+import "./TodoStyle.css";
+const TodoList = ({ todo, onEdit, onDelete }) => {
   return (
     <div>
       <table className="table">
         <tr className="th">
-          <th>
-            Names
-          </th>
-          <th>
-            Buttons
-          </th>
+          <th>Names</th>
+          <th>Buttons</th>
         </tr>
         <tr className="th">
-          
           <ul>
-        {props.todo.map((data, index) => {
-          return (
-            <li key={index}>
-             <td > {data.name} {<button onClick={() => props.handleDelete(index)}>Delete</button>}
-              {<button onClick={() => props.handleEdit(data,index)}>Edit</button>}</td>
-             {/* <td > </td>  */}
-            </li>
-
-          );
-        })}
-      </ul>
-          
+            {todo.map((data, i) => {
+              return (
+                <li key={data.id}>
+                  <td>
+                    {" "}
+                    {data.name}{" "}
+                    {<button onClick={() => onDelete(data.id)}>Delete</button>}
+                    {<button onClick={() => onEdit(data, i)}>Edit</button>}
+                  </td>
+                </li>
+              );
+            })}
+          </ul>
         </tr>
       </table>
-      
     </div>
   );
 };

@@ -1,12 +1,12 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import TodoList from "./TodoList";
 import TodoForm from "./TodoForm";
 const Todos = () => {
-    const [todoList, setTodoList] = useState([]);
+  const [todoList, setTodoList] = useState([]);
   const [todo, setTodo] = useState();
   const [isEditMode, setIsEditMode] = useState(false);
-  const [iid, setId] = useState(0);
-  
+  const [index, setIndex] = useState(0);
+
   const onAdd = () => {
     let myData = {
       name: todo,
@@ -20,17 +20,14 @@ const Todos = () => {
   };
 
   const onDelete = (id) => {
-    
     const newTodoList = todoList.filter((todo) => id !== todo.id);
-    
+
     setTodoList(newTodoList);
-    
   };
 
-  const onEdit = (data) => {
-    console.log("data",data.id)
+  const onEdit = (data, i) => {
     setTodo(data.name);
-    setId(data.id)
+    setIndex(i);
     setIsEditMode(true);
   };
 
@@ -40,9 +37,9 @@ const Todos = () => {
       name: todo,
       id: Date.now(),
     };
-    console.log("id",iid)
-    newTodo.splice(iid, 1, data);
-    console.log("newTodo",newTodo)
+
+    newTodo.splice(index, 1, data);
+
     setTodoList(newTodo);
     setIsEditMode(false);
     valueNull();
@@ -52,18 +49,18 @@ const Todos = () => {
   };
   return (
     <div>
-      <TodoForm 
-      todo={todo}
-      setTodo={setTodo}
-       isEditMode={isEditMode}
-       onUpdate={() => onUpdate()}
-       onAdd={(data) => onAdd(data)}
+      <TodoForm
+        todo={todo}
+        setTodo={setTodo}
+        isEditMode={isEditMode}
+        onUpdate={() => onUpdate()}
+        onAdd={(data) => onAdd(data)}
       />
       <TodoList
-          todo={todoList}
-          onDelete={(id) => onDelete(id)}
-          onEdit={(data) => onEdit(data)}
-        />
+        todo={todoList}
+        onDelete={(id) => onDelete(id)}
+        onEdit={(data, i) => onEdit(data, i)}
+      />
     </div>
   );
 };
