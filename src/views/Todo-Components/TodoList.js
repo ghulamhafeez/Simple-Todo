@@ -1,29 +1,28 @@
 import React from "react";
 import "./TodoStyle.css";
-const TodoList = ({ todo, onEdit, onDelete }) => {
+const TodoList = ({ todos, onEdit, onDelete ,onToggleCompletion}) => {
   return (
     <div>
       <table className="table">
         <tr className="th">
+       
           <th>Names</th>
           <th>Buttons</th>
         </tr>
-        <tr className="th">
-          <ul>
-            {todo.map((data, i) => {
-              return (
-                <li key={data.id}>
-                  <td>
-                    {" "}
-                    {data.name}{" "}
-                    {<button onClick={() => onDelete(data.id)}>Delete</button>}
-                    {<button onClick={() => onEdit(data, i)}>Edit</button>}
-                  </td>
-                </li>
-              );
-            })}
-          </ul>
-        </tr>
+
+        {todos.map((data, i) => {
+          return (
+            <tr className="tr"  style={{ textDecoration: data.isCompleted ? "line-through" : null }} key={data.id}>
+            
+              <td>
+              <input type="checkbox" onClick={() => onToggleCompletion(data.id)} defaultChecked={false}></input>{data.name} </td>
+              <td>
+                {<button onClick={() => onDelete(data.id)}>Delete</button>}
+                {<button onClick={() => onEdit(data)}>Edit</button>}
+              </td>
+            </tr>
+          );
+        })}
       </table>
     </div>
   );

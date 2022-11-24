@@ -11,6 +11,7 @@ const Todos = () => {
     let myData = {
       name: todo,
       id: Date.now(),
+      isCompleted: false,
     };
     const newTodo = [...todos, myData];
 
@@ -24,14 +25,13 @@ const Todos = () => {
     setTodos(newTodoList);
   };
 
-  const onEdit = (data) => {
-    setTodo(data.name);
-    setId(data.id);
+  const onEdit = ({ name, id }) => {
+    setTodo(name);
+    setId(id);
     setIsEditMode(true);
   };
 
   const onUpdate = () => {
-
     //findindex method//
 
     // const newTodo = todos.slice();
@@ -46,6 +46,14 @@ const Todos = () => {
     setTodo("");
   };
 
+  const onToggleCompletion = (id) => {
+    const checkIsCompleted = todos.map((x) =>
+      x.id === id ? { ...x, isCompleted: !x.isCompleted } : x
+    );
+
+    setTodos(checkIsCompleted);
+  };
+
   return (
     <div>
       <TodoForm
@@ -56,9 +64,10 @@ const Todos = () => {
         onAdd={() => onAdd()}
       />
       <TodoList
-        todo={todos}
+        todos={todos}
         onDelete={(id) => onDelete(id)}
         onEdit={(data) => onEdit(data)}
+        onToggleCompletion={(id) => onToggleCompletion(id)}
       />
     </div>
   );
