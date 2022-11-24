@@ -8,9 +8,11 @@ const Todos = () => {
   const [id, setId] = useState(0);
 
   const onAdd = () => {
+
     let myData = {
       name: todo,
       id: Date.now(),
+      isCompleted: false
     };
     const newTodo = [...todos, myData];
 
@@ -46,6 +48,14 @@ const Todos = () => {
     setTodo("");
   };
 
+  const onCheckBoxClick =(data)=>{
+
+const checkIsCompleted = todos.map((x)=> x.id === data.id ?{...x ,isCompleted : !x.isCompleted}:x)
+console.log("check",checkIsCompleted)
+setTodos(checkIsCompleted);
+  }
+
+
   return (
     <div>
       <TodoForm
@@ -59,6 +69,7 @@ const Todos = () => {
         todo={todos}
         onDelete={(id) => onDelete(id)}
         onEdit={(data) => onEdit(data)}
+        onCheckBoxClick={(data) => onCheckBoxClick(data)}
       />
     </div>
   );
