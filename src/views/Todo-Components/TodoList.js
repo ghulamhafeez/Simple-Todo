@@ -1,6 +1,6 @@
 import React from "react";
 import "./TodoStyle.css";
-const TodoList = ({ todo, onEdit, onDelete ,onCheckBoxClick}) => {
+const TodoList = ({ todos, onEdit, onDelete ,onToggleCompletion}) => {
   return (
     <div>
       <table className="table">
@@ -10,12 +10,12 @@ const TodoList = ({ todo, onEdit, onDelete ,onCheckBoxClick}) => {
           <th>Buttons</th>
         </tr>
 
-        {todo.map((data, i) => {
+        {todos.map((data, i) => {
           return (
             <tr className="tr"  style={{ textDecoration: data.isCompleted ? "line-through" : null }} key={data.id}>
             
               <td>
-              <input type="checkbox" onClick={() => onCheckBoxClick(data)} defaultChecked={false}></input>{data.name} </td>
+              <input type="checkbox" onClick={() => onToggleCompletion(data.id)} defaultChecked={false}></input>{data.name} </td>
               <td>
                 {<button onClick={() => onDelete(data.id)}>Delete</button>}
                 {<button onClick={() => onEdit(data)}>Edit</button>}
