@@ -1,20 +1,28 @@
 import React from "react";
-
-const TodoForm = ({ onUpdate, setTodo, onAdd, isEditMode, todo }) => {
+const TodoForm = ({
+  onUpdate,
+  setTodo,
+  onAdd,
+  isEditMode,
+  onFilter,
+  todo,
+}) => {
   return (
     <div>
       <h2 className="display">TODO LIST</h2>
-      <input
-        className="input"
-        type="text"
-        value={todo}
-        onChange={(e) => setTodo(e.target.value)}
-      ></input>
-      {isEditMode ? (
-        <button onClick={() => onUpdate()}>UpDate</button>
-      ) : (
-        <button onClick={() => onAdd()}>Add</button>
-      )}
+      <div className="input">
+        <b>Todo: </b>
+        <input
+          type="text"
+          value={todo}
+          onChange={(e) => setTodo(e.target.value)}
+        ></input>
+        {isEditMode ? (
+          <button data-testid={"UpdateTest"} onClick={() => onUpdate()}>UpDate</button>
+        ) : (
+          <button data-testid={"AddTest"} onClick={() => onAdd()}>Add</button>
+        )}
+      </div>
     </div>
   );
 };

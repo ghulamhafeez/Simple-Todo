@@ -1,11 +1,7 @@
 import React from "react";
 import Todos from "../src/views/Todo-Components/Todos";
 const App = () => {
-  return (
-    <div>
-      <Todos />
-    </div>
-  );
+  return <Todos />;
 };
 
 export default App;
