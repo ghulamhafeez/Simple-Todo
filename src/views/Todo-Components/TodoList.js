@@ -24,7 +24,7 @@ const TodoList = ({ todos, onEdit, onDelete, onToggleCompletion }) => {
                   onClick={() => onToggleCompletion(data.id)}
                   defaultChecked={false}
                 ></input>
-                {data.name}{" "}
+                {data.title}{" "}
               </td>
               <td>
                 {

@@ -7,7 +7,7 @@ const onUpdate = jest.fn()
 test("Check TODO LIST Heading present in TodoForm" , ()=>{
 
     render(<TodoForm />)
-    const TodoList = screen.getByText(/TODO LIST/i)
+    const TodoList = screen.getByText(/TODO LIST/)
     expect(TodoList).toBeInTheDocument();
 })
 
