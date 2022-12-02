@@ -1,21 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TodoList from "./TodoList";
-import TodoForm from "./TodoForm";
+// import {TodoForm} from "./TodoForm";
+import { TodoForm } from "./TodoForm";
+import TodoFilter from "./TodoFilter";
+import { getTodos } from "../../services/Todoservices";
+
 const Todos = () => {
   const [todos, setTodos] = useState([]);
   const [todo, setTodo] = useState("");
+  const [searchValue, setSearchValue] = useState("");
+  // const [filterValue, setFilterValue] = useState("");
   const [isEditMode, setIsEditMode] = useState(false);
   const [id, setId] = useState(0);
 
-  const onAdd = () => {
+  useEffect(() => {
+    // Fetch Method
+
+    // fetch('https://jsonplaceholder.typicode.com/todos')
+    // .then(response => response.json())
+    // .then(data => setTodos(data))
+
+    getTodos().then((res) => setTodos(res));
+  }, []);
+
+  const searchedTodos = todos.filter((x) => x.title.includes(searchValue));
+
+  const onAdd = (TodoValue) => {
     let myData = {
-      name: todo,
+      title: TodoValue,
       id: Date.now(),
       isCompleted: false,
     };
-    const newTodo = [...todos, myData];
-
-    setTodos(newTodo);
+    const updatedTodos = [myData, ...todos];
+    setTodos(updatedTodos);
     setTodo("");
   };
 
@@ -25,13 +42,17 @@ const Todos = () => {
     setTodos(newTodoList);
   };
 
-  const onEdit = ({ name, id }) => {
-    setTodo(name);
+  const onSearch = (e) => {
+    setSearchValue(e.target.value);
+  };
+
+  const onEdit = ({ title, id }) => {
+    setTodo(title);
     setId(id);
     setIsEditMode(true);
   };
 
-  const onUpdate = () => {
+  const onUpdate = (TodoValue) => {
     //findindex method//
 
     // const newTodo = todos.slice();
@@ -39,13 +60,16 @@ const Todos = () => {
     // newTodo.splice(index, 1, myData);
 
     const updatedTodos = todos.map((x) =>
-      x.id == id ? { ...x, name: todo } : x
+      x.id === id ? { ...x, title: TodoValue } : x
     );
     setTodos(updatedTodos);
     setIsEditMode(false);
     setTodo("");
   };
 
+  // const onFilter = (e) => {
+  //   setFilterValue(e.target.value);
+  // };
   const onToggleCompletion = (id) => {
     const checkIsCompleted = todos.map((x) =>
       x.id === id ? { ...x, isCompleted: !x.isCompleted } : x
@@ -60,11 +84,18 @@ const Todos = () => {
         todo={todo}
         setTodo={setTodo}
         isEditMode={isEditMode}
-        onUpdate={() => onUpdate()}
-        onAdd={() => onAdd()}
+        onUpdate={(TodoValue) => onUpdate(TodoValue)}
+        onAdd={(TodoValue) => onAdd(TodoValue)}
+      />
+
+      <TodoFilter
+        // onFilter={(e) => onFilter(e)}
+        // filterValue={filterValue}
+        onSearch={(e) => onSearch(e)}
+        searchValue={searchValue}
       />
       <TodoList
-        todos={todos}
+        todos={searchedTodos}
         onDelete={(id) => onDelete(id)}
         onEdit={(data) => onEdit(data)}
         onToggleCompletion={(id) => onToggleCompletion(id)}
