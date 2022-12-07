@@ -1,6 +1,10 @@
 import React from "react";
 import "./TodoStyle.css";
-const TodoList = ({ todos, onEdit, onDelete, onToggleCompletion }) => {
+import { useDispatch } from "react-redux";
+import { onDelete, onToggleCompletion } from "../../reducers/TodoReducer";
+const TodoList = ({ onEdit, searchedTodos }) => {
+  const dispatch = useDispatch();
+
   return (
     <div>
       <table className="table">
@@ -9,7 +13,7 @@ const TodoList = ({ todos, onEdit, onDelete, onToggleCompletion }) => {
           <th>Actions</th>
         </tr>
 
-        {todos.map((data, i) => {
+        {searchedTodos.map((data, i) => {
           return (
             <tr
               className="tr"
@@ -21,7 +25,7 @@ const TodoList = ({ todos, onEdit, onDelete, onToggleCompletion }) => {
               <td>
                 <input
                   type="checkbox"
-                  onClick={() => onToggleCompletion(data.id)}
+                  onClick={() => dispatch(onToggleCompletion(data.id))}
                   defaultChecked={false}
                 ></input>
                 {data.title}{" "}
@@ -30,7 +34,7 @@ const TodoList = ({ todos, onEdit, onDelete, onToggleCompletion }) => {
                 {
                   <button
                     data-testid={`delete-button-${data.id}`}
-                    onClick={() => onDelete(data.id)}
+                    onClick={() => dispatch(onDelete(data.id))}
                   >
                     Delete
                   </button>

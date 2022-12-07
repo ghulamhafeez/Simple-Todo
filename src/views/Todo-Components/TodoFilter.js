@@ -6,7 +6,7 @@ const TodoFilter = ({ onFilter, filterValue, searchValue, onSearch }) => {
       <div className="input">
         <b>Search: </b>
         <input
-         data-testid={"search-input"}
+          data-testid={"search-input"}
           type="text"
           value={searchValue}
           onChange={(e) => onSearch(e)}

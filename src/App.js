@@ -1,8 +1,16 @@
 import React from "react";
-import Todos from "../src/views/Todo-Components/Todos";
+import { store } from "./store/store";
+import { Provider } from "react-redux";
+import TheLayout from "./container/MainLyout";
 
 const App = () => {
-  return <Todos />;
+  return (
+    <>
+      <Provider store={store}>
+        <TheLayout />
+      </Provider>
+    </>
+  );
 };
 
 export default App;

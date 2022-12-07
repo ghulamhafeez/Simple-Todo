@@ -1,11 +1,14 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useDispatch } from "react-redux";
+import { onAdd, onUpdate } from "../../reducers/TodoReducer";
 
-export const TodoForm = ({ todo, onUpdate, onAdd, isEditMode }) => {
+export const TodoForm = ({ id, todo, isEditMode }) => {
   const schema = Yup.object().shape({
-    todo: Yup.string().required("Fill Todo Field"),
+    todo: Yup.string().required("Name is required"),
   });
+  const dispatch = useDispatch();
 
   const { handleBlur, handleChange, values, handleSubmit, errors } = useFormik({
     initialValues: {
@@ -14,7 +17,11 @@ export const TodoForm = ({ todo, onUpdate, onAdd, isEditMode }) => {
 
     validationSchema: schema,
     onSubmit: (values, { resetForm }) => {
-      isEditMode ? onUpdate(values.todo) : onAdd(values.todo);
+      if (isEditMode) {
+        dispatch(onUpdate({ todovalue: values.todo, id: id }));
+      } else {
+        dispatch(onAdd(values.todo));
+      }
       resetForm({ todo: "" });
     },
     enableReinitialize: true,
@@ -23,7 +30,6 @@ export const TodoForm = ({ todo, onUpdate, onAdd, isEditMode }) => {
   return (
     <div>
       <h2 className="display">TODO LIST</h2>
-
       <form onSubmit={handleSubmit}>
         <div className="input">
           <b>Todo: </b>
