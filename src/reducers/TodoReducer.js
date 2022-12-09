@@ -28,7 +28,7 @@ export const TodoReducer = createSlice({
       );
 
       state.todos = updatedTodos;
-      action.payload.todovalue = "";
+     
     },
     onDelete: (state, action) => {
       state.todos = state.todos.filter((todo) => action.payload !== todo.id);
