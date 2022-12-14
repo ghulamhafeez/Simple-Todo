@@ -1,29 +1,30 @@
 import React from "react";
-import Counter from "../views/ReduxCounter/Counter"
-import Todos from "../views/Todo-Components/Todos"
+import ReduxCounter from "../views/ReduxCounter/Counter";
+import ContextCounter from "../views/ContextCounter/CounterValue";
+import Todos from "../views/Todo-Components/Todos";
 import RtkData from "../views/RTK-Query/RtkData";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Todos />
-    },
-    {
-        path:'/counter',
-        element:<Counter />
-    },
-    {
-      path: "/rtk-data",
-      element:<RtkData />
-    }
-  ]);
+  {
+    path: "/",
+    element: <Todos />,
+  },
+  {
+    path: "/redux-counter",
+    element: <ReduxCounter />,
+  },
+  {
+    path: "/rtk-data",
+    element: <RtkData />,
+  },
+  {
+    path: "/context-counter",
+    element: <ContextCounter />,
+  },
+]);
 
 const Contents = () => {
-  return (
-  
-    <RouterProvider router={router} />
-
-  );
+  return <RouterProvider router={router} />;
 };
 
 export default Contents;
