@@ -23,7 +23,7 @@ const Todos = () => {
     // .then(data => setTodos(data))
 
     getTodos().then((res) => dispatch(onGetTodos(res)));
-  }, []);
+  }, [dispatch]);
 
   const onSearch = (e) => {
     setSearchValue(e.target.value);
