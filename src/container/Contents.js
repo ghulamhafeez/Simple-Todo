@@ -3,6 +3,7 @@ import ReduxCounter from "../views/ReduxCounter/Counter";
 import ContextCounter from "../views/ContextCounter/CounterValue";
 import Todos from "../views/Todo-Components/Todos";
 import RtkData from "../views/RTK-Query/RtkData";
+import {AdmissionForm} from "../views/FormikAdmissionForm/AdmissionForm"
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 const router = createBrowserRouter([
   {
@@ -20,6 +21,11 @@ const router = createBrowserRouter([
   {
     path: "/context-counter",
     element: <ContextCounter />,
+  },
+  
+  {
+    path: "/admission-form",
+    element: <AdmissionForm />,
   },
 ]);
 
